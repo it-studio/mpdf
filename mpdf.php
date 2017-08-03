@@ -30559,95 +30559,96 @@ class mPDF
 		// Setting e.g. margin % will use maxsize (pagewidth) and em will use fontsize
 		// Returns values using 'mm' units
 		$size = trim(strtolower($size));
+		$res = intval($size);
 
 		if ($size == 'thin')
-			$size = 1 * (25.4 / $this->dpi); //1 pixel width for table borders
+			$res = 1 * (25.4 / $this->dpi); //1 pixel width for table borders
 		elseif (stristr($size, 'px'))
-			$size *= (25.4 / $this->dpi); //pixels
+			$res *= (25.4 / $this->dpi); //pixels
 		elseif (stristr($size, 'cm'))
-			$size *= 10; //centimeters
+			$res *= 10; //centimeters
 		elseif (stristr($size, 'mm'))
-			$size += 0; //millimeters
+			$res += 0; //millimeters
 		elseif (stristr($size, 'pt'))
-			$size *= 25.4 / 72; //72 pts/inch
+			$res *= 25.4 / 72; //72 pts/inch
 		elseif (stristr($size, 'rem')) {
-			$size += 0; //make "0.83rem" become simply "0.83"
-			$size *= ($this->default_font_size / _MPDFK);
+			$res += 0; //make "0.83rem" become simply "0.83"
+			$res *= ($this->default_font_size / _MPDFK);
 		} elseif (stristr($size, 'em')) {
-			$size += 0; //make "0.83em" become simply "0.83"
+			$res += 0; //make "0.83em" become simply "0.83"
 			if ($fontsize) {
-				$size *= $fontsize;
+				$res *= $fontsize;
 			} else {
-				$size *= $maxsize;
+				$res *= $maxsize;
 			}
 		} elseif (stristr($size, '%')) {
-			$size += 0; //make "90%" become simply "90"
+			$res += 0; //make "90%" become simply "90"
 			if ($fontsize && $usefontsize) {
-				$size *= $fontsize / 100;
+				$res *= $fontsize / 100;
 			} else {
-				$size *= $maxsize / 100;
+				$res *= $maxsize / 100;
 			}
 		} elseif (stristr($size, 'in'))
-			$size *= 25.4; //inches
+			$res *= 25.4; //inches
 		elseif (stristr($size, 'pc'))
-			$size *= 38.1 / 9; //PostScript picas
+			$res *= 38.1 / 9; //PostScript picas
 		elseif (stristr($size, 'ex')) { // Approximates "ex" as half of font height
-			$size += 0; //make "3.5ex" become simply "3.5"
+			$res += 0; //make "3.5ex" become simply "3.5"
 			if ($fontsize) {
-				$size *= $fontsize / 2;
+				$res *= $fontsize / 2;
 			} else {
-				$size *= $maxsize / 2;
+				$res *= $maxsize / 2;
 			}
 		} elseif ($size == 'medium')
-			$size = 3 * (25.4 / $this->dpi); //3 pixel width for table borders
+			$res = 3 * (25.4 / $this->dpi); //3 pixel width for table borders
 		elseif ($size == 'thick')
-			$size = 5 * (25.4 / $this->dpi); //5 pixel width for table borders
+			$res = 5 * (25.4 / $this->dpi); //5 pixel width for table borders
 		elseif ($size == 'xx-small') {
 			if ($fontsize) {
-				$size *= $fontsize * 0.7;
+				$res *= $fontsize * 0.7;
 			} else {
-				$size *= $maxsize * 0.7;
+				$res *= $maxsize * 0.7;
 			}
 		} elseif ($size == 'x-small') {
 			if ($fontsize) {
-				$size *= $fontsize * 0.77;
+				$res *= $fontsize * 0.77;
 			} else {
-				$size *= $maxsize * 0.77;
+				$res *= $maxsize * 0.77;
 			}
 		} elseif ($size == 'small') {
 			if ($fontsize) {
-				$size *= $fontsize * 0.86;
+				$res *= $fontsize * 0.86;
 			} else {
-				$size *= $maxsize * 0.86;
+				$res *= $maxsize * 0.86;
 			}
 		} elseif ($size == 'medium') {
 			if ($fontsize) {
-				$size *= $fontsize;
+				$res *= $fontsize;
 			} else {
-				$size *= $maxsize;
+				$res *= $maxsize;
 			}
 		} elseif ($size == 'large') {
 			if ($fontsize) {
-				$size *= $fontsize * 1.2;
+				$res *= $fontsize * 1.2;
 			} else {
-				$size *= $maxsize * 1.2;
+				$res *= $maxsize * 1.2;
 			}
 		} elseif ($size == 'x-large') {
 			if ($fontsize) {
-				$size *= $fontsize * 1.5;
+				$res *= $fontsize * 1.5;
 			} else {
-				$size *= $maxsize * 1.5;
+				$res *= $maxsize * 1.5;
 			}
 		} elseif ($size == 'xx-large') {
 			if ($fontsize) {
-				$size *= $fontsize * 2;
+				$res *= $fontsize * 2;
 			} else {
-				$size *= $maxsize * 2;
+				$res *= $maxsize * 2;
 			}
 		} else
-			$size *= (25.4 / $this->dpi); //nothing == px
+			$res *= (25.4 / $this->dpi); //nothing == px
 
-		return $size;
+		return $res;
 	}
 
 	// mPDF 5.7.3 TRANSFORMS
